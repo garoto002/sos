@@ -1,0 +1,252 @@
+"use client";
+import React, { useState, useEffect } from 'react';
+import ModulePageLayout from '@/components/ModulePageLayout';
+import PageHeader from "@/components/PageHeader";
+import { 
+  Drawer, 
+  Button, 
+  TextField, 
+  FormControl, 
+  InputLabel, 
+  Select, 
+  MenuItem,
+  Box
+} from '@mui/material';
+import {
+  FilterList,
+  Add,
+  Person,
+  Group,
+  AdminPanelSettings,
+  BarChart as BarChartIcon
+} from '@mui/icons-material';
+import Link from 'next/link';
+import UsersCardsNew from '@/components/UsersCardsNew';
+import UsersTableNew from '@/components/UsersTableNew';
+
+export default function UsersPage() {
+  const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [viewMode, setViewMode] = useState('cards');
+  const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
+
+  // Estados dos filtros
+  const [filters, setFilters] = useState({
+    search: '',
+    role: '',
+    status: '',
+    company: '',
+  });
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  useEffect(() => {
+    filterUsers();
+  }, [filters, users]);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch('/api/users');
+      if (!response.ok) throw new Error('Erro ao buscar usuários');
+      const data = await response.json();
+      setUsers(data.users || []);
+    } catch (error) {
+      console.error('Erro:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filterUsers = () => {
+    let filtered = [...users];
+
+    if (filters.search) {
+      const searchLower = filters.search.toLowerCase();
+      filtered = filtered.filter(user => 
+        user.name?.toLowerCase().includes(searchLower) ||
+        user.email?.toLowerCase().includes(searchLower) ||
+        user.company?.toLowerCase().includes(searchLower)
+      );
+    }
+
+    if (filters.role) {
+      filtered = filtered.filter(user => user.role === filters.role);
+    }
+
+    if (filters.status) {
+      filtered = filtered.filter(user => user.status === filters.status);
+    }
+
+    if (filters.company) {
+      const companyLower = filters.company.toLowerCase();
+      filtered = filtered.filter(user => 
+        user.company?.toLowerCase().includes(companyLower)
+      );
+    }
+
+    setFilteredUsers(filtered);
+  };
+
+  const handleFilterChange = (field, value) => {
+    setFilters(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  // Variáveis para os cards de estatísticas
+  const totalUsers = users.length;
+  const adminCount = users.filter(user => user.role === 'admin').length;
+  const activeUsers = users.filter(user => user.status === 'ativo').length;
+  const inactiveUsers = users.filter(user => user.status === 'inativo').length;
+
+  const safeFilteredUsers = filteredUsers.map(user => ({
+    ...user,
+    createdAt: user.createdAt || new Date(),
+    updatedAt: user.updatedAt || new Date()
+  }));
+
+  const pageActions = [
+    {
+      label: "Novo Usuário",
+      icon: <Add />,
+      href: "/users/create",
+      primary: true
+    }
+  ];
+
+  const cards = [
+    {
+      title: totalUsers.toString(),
+      subtitle: "Total de Usuários",
+      icon: <Group className="text-blue-500" />
+    },
+    {
+      title: adminCount.toString(),
+      subtitle: "Administradores",
+      icon: <AdminPanelSettings className="text-purple-500" />
+    },
+    {
+      title: activeUsers.toString(),
+      subtitle: "Usuários Ativos",
+      icon: <Person className="text-green-500" />
+    },
+    {
+      title: inactiveUsers.toString(),
+      subtitle: "Usuários Inativos",
+      icon: <Person className="text-red-500" />
+    }
+  ];
+
+  return (
+    <ModulePageLayout
+      viewMode={viewMode}
+      onViewModeChange={setViewMode}
+      filterOpen={filterDrawerOpen}
+      onFilterOpenChange={setFilterDrawerOpen}
+    >
+      <PageHeader
+        title="Usuários"
+        subtitle="Gerencie os usuários do sistema"
+        actions={pageActions}
+      />
+
+      <div className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {cards.map((card, index) => (
+            <div key={index} className="bg-white p-6 rounded-lg shadow">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-2xl font-bold">{card.title}</div>
+                  <div className="text-sm text-gray-500">{card.subtitle}</div>
+                </div>
+                {card.icon}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {viewMode === 'cards' ? (
+          <UsersCardsNew users={safeFilteredUsers} onUserUpdate={fetchUsers} />
+        ) : (
+          <UsersTableNew users={safeFilteredUsers} onUserUpdate={fetchUsers} />
+        )}
+      </div>
+
+      {/* Drawer de Filtros */}
+      <Drawer
+        anchor="right"
+        open={filterDrawerOpen}
+        onClose={() => setFilterDrawerOpen(false)}
+      >
+        <Box sx={{ width: 320, p: 3 }}>
+          <div className="space-y-4">
+            <TextField
+              fullWidth
+              label="Pesquisar"
+              value={filters.search}
+              onChange={(e) => handleFilterChange('search', e.target.value)}
+            />
+
+            <FormControl fullWidth>
+              <InputLabel>Função</InputLabel>
+              <Select
+                value={filters.role}
+                label="Função"
+                onChange={(e) => handleFilterChange('role', e.target.value)}
+              >
+                <MenuItem value="">Todos</MenuItem>
+                <MenuItem value="admin">Admin</MenuItem>
+                <MenuItem value="user">Usuário</MenuItem>
+              </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+              <InputLabel>Status</InputLabel>
+              <Select
+                value={filters.status}
+                label="Status"
+                onChange={(e) => handleFilterChange('status', e.target.value)}
+              >
+                <MenuItem value="">Todos</MenuItem>
+                <MenuItem value="ativo">Ativo</MenuItem>
+                <MenuItem value="inativo">Inativo</MenuItem>
+              </Select>
+            </FormControl>
+
+            <TextField
+              fullWidth
+              label="Empresa"
+              value={filters.company}
+              onChange={(e) => handleFilterChange('company', e.target.value)}
+            />
+
+            <div className="flex justify-end gap-2">
+              <Button
+                onClick={() => {
+                  setFilters({
+                    search: '',
+                    role: '',
+                    status: '',
+                    company: '',
+                  });
+                }}
+              >
+                Limpar
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => setFilterDrawerOpen(false)}
+              >
+                Aplicar
+              </Button>
+            </div>
+          </div>
+        </Box>
+      </Drawer>
+    </ModulePageLayout>
+  );
+}

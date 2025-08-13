@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+    form input, 
+    form textarea,
+    form select {
+        @apply border border-zinc-800 py-1 px-2;
+    }
+    
+    label {
+        @apply font-bold;
+    }
+    .form-group {
+    @apply w-full mb-2
+    }
+    
+    .form-group input{
+        @apply w-full;
+    }
+    .form-group [type="radio"] {
+        @apply w-[unset];
+    }
+    }
+    .low-stock {
+        background-color: #FFC0CB; /* Cor de fundo para indicar estoque baixo (pode ajustar conforme necessário) */
+        font-weight: bold; /* Pode ajustar a aparência conforme necessário */
+      }
