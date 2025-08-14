@@ -110,6 +110,18 @@ export function BarChartSVG({ data, width = 400, height = 200, color = "#6366f1"
 }
 
 // Gráfico de pizza aprimorado com legenda e interatividade
+export function CompanyDistributionChart({ data, width = 400, height = 200 }) {
+  return <PieChartSVG data={data} width={width} height={height} label="Distribuição de Empresas" />;
+}
+
+export function CompanyGrowthChart({ data, width = 400, height = 200 }) {
+  return <BarChartSVG data={data} width={width} height={height} label="Crescimento de Empresas" />;
+}
+
+export function CompanyActivityChart({ data, width = 400, height = 200 }) {
+  return <BarChartSVG data={data} width={width} height={height} label="Atividade das Empresas" color="#10B981" />;
+}
+
 export function PieChartSVG({ data, width = 400, height = 200, label = "" }) {
   if (!data || data.length === 0) return null;
   const radius = Math.min(width - 120, height - 40) / 3;
