@@ -1,7 +1,9 @@
-  const handlePdf = (adjustment) => {
+"use client";
+
+const handlePdf = (adjustment) => {
     window.open(`/api/stock-adjustments/${adjustment._id}/pdf`, '_blank');
   };
-"use client"
+
 import { useEffect, useState } from "react";
 import BaseTable from "./BaseTable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

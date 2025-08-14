@@ -1,3 +1,5 @@
+"use client";
+
 import { Add, Assessment, ShoppingCart, Inventory2 } from '@mui/icons-material';
 import PageHeader from '@/components/PageHeader';
 import StockAdjustmentsTable  from '@/components/StockAdjustmentsTable';

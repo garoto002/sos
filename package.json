@@ -29,13 +29,16 @@
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",
     "mongoose": "^8.0.3",
+    "nanoid": "^5.1.5",
     "next": "14.0.4",
     "next-auth": "^4.24.5",
     "number-to-words": "^1.2.4",
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
-    "recharts": "^2.15.4"
+    "react-image-crop": "^11.0.10",
+    "recharts": "^2.15.4",
+    "sharp": "^0.34.3"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

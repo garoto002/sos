@@ -39,6 +39,12 @@ const userSchema=new Schema({
         type: Schema.Types.ObjectId,
         ref: "Empresa",
     },
+    status: {
+        type: String,
+        enum: ["active", "inactive"],
+        default: "active",
+        required: true,
+    },
     createdAt: {
         type: Date,
         required: true,
