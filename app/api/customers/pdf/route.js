@@ -4,6 +4,9 @@ import Customer from '../../../../models/customerModel';
 import User from '../../../../models/userModel';
 import { getServerSession } from 'next-auth';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function GET(request) {
   try {
     await connectToDB();
