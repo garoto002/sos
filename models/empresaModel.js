@@ -87,5 +87,6 @@ const empresaSchema = new Schema({
   updatedAt: { type: Date, required: true, default: Date.now }
 });
 
-const Empresa = models.Empresa || model("Empresa", empresaSchema);
-export default Empresa;
+const empresaModel = models.Empresa || model("Empresa", empresaSchema);
+export { empresaModel };
+export default empresaModel;

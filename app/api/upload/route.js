@@ -3,7 +3,7 @@ import sharp from 'sharp';
 import path from 'path';
 import fs from 'fs/promises';
 import { nanoid } from 'nanoid';
-import { empresaModel } from '@/models/empresaModel';
+import Empresa from '@/models/empresaModel';
 
 const UPLOAD_DIR = path.join(process.cwd(), 'public/uploads');
 
@@ -69,7 +69,7 @@ export async function POST(request) {
       .toFile(filePath);
 
     // Atualizar o campo apropriado no modelo da empresa
-    const empresa = await empresaModel.findById(empresaId);
+    const empresa = await Empresa.findById(empresaId);
     if (!empresa) {
       return NextResponse.json(
         { error: 'Empresa não encontrada' },
@@ -121,7 +121,7 @@ export async function DELETE(request) {
       );
     }
 
-    const empresa = await empresaModel.findById(empresaId);
+    const empresa = await Empresa.findById(empresaId);
     if (!empresa) {
       return NextResponse.json(
         { error: 'Empresa não encontrada' },
