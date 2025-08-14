@@ -1,3 +1,6 @@
 "use client";
-// Arquivo movido para app/superadmin/dashboard/page.js
-ssdjdlldssd
+import SuperAdminDashboard from '@/components/SuperAdminDashboard';
+
+export default function SuperadminDashboardPage() {
+  return <SuperAdminDashboard />;
+}
