@@ -30,11 +30,10 @@ export async function GET(request){
     } 
 }
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// Nova forma de configurar opções da rota
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+// Para lidar com uploads, agora usamos formData() diretamente
 
 export async function POST(request) {
   try {
