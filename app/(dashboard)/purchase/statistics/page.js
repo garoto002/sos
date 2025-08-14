@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import IndicatorsRow from '../../../../components/IndicatorsRow';
 import AdvancedFilters from '../../../../components/AdvancedFilters';
 import EvolutionChart from '../../../../components/EvolutionChart';
-import PurchasesCards from '../../../../components/PurchasesCards';
+import PurchasesCards from '../../../../components/PurchasesCardsNew';
 
 // Função para exportar relatório CSV
 function exportReport({ filteredPurchases, totalVolume, totalPurchases, bestSupplier, bestSupplierQty }) {

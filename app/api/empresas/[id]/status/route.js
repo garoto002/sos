@@ -1,10 +1,10 @@
 "use server";
-import dbConnect from "@/utils/dbConnect";
+import connectToDB from "@/utils/DAO";
 import Empresa from "@/models/empresaModel";
 
 export async function PATCH(request, { params }) {
   try {
-    await dbConnect();
+    await connectToDB();
     const { id } = params;
     const { status } = await request.json();
     
