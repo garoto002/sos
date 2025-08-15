@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sistema SOS - Pessoas Perdidas e Achadas
 
-## Getting Started
+Um sistema moderno e responsivo para reportar e encontrar pessoas perdidas, desenvolvido com Next.js 14 e design mobile-first.
 
-First, run the development server:
+## 🚀 Características
 
+### 📱 **Interface Mobile Premium**
+- **Status sempre visível** na tela principal
+- **Touch interface otimizada** com ícones grandes e intuitivos
+- **Design glassmorphism** com gradientes modernos
+- **Animações suaves** e feedback visual
+- **Carrossel automático** das pessoas cadastradas
+
+### 🎯 **Funcionalidades Principais**
+- ✅ **Cadastro de pessoas** perdidas ou encontradas
+- 🔄 **Alteração de status** em tempo real
+- 🗺️ **Integração com mapas** para localização
+- 💬 **Sistema de comentários** e relatos
+- 🔍 **Busca e filtros** avançados
+- 📱 **Totalmente responsivo** (mobile-first)
+
+### 🛠️ **Tecnologias**
+- **Next.js 14** - Framework React
+- **MongoDB** - Banco de dados
+- **Mongoose** - ODM para MongoDB
+- **Tailwind CSS** - Estilização e responsividade
+- **React Leaflet** - Mapas interativos
+- **Next-Auth** - Autenticação
+
+## 🎨 **Design Mobile**
+
+### **Tela Principal:**
+- **Foto em tela cheia** da pessoa
+- **Status em destaque** no topo (PERDIDO/ENCONTRADO)
+- **Nome e descrição** sempre visíveis
+- **Ícones touch** para mais informações
+
+### **Ícones Mobile:**
+- 👤 **Detalhes** - Nome completo, data, local
+- 👕 **Aparência** - Roupas e características físicas  
+- 📍 **Mapa** - Localização no mapa interativo
+- 📞 **Contato** - Informações para contato
+- 💬 **Relatos** - Comentários e atualizações
+- ✖ **Fechar** - Esconder opções
+
+## 🚀 **Como Executar**
+
+### **Pré-requisitos:**
+- Node.js 18+
+- MongoDB (local ou remoto)
+
+### **Instalação:**
 ```bash
+# Clone o repositório
+git clone https://github.com/garoto002/sos.git
+cd sos
+
+# Instale as dependências
+npm install
+
+# Configure as variáveis de ambiente
+cp .env.example .env.local
+# Edite .env.local com suas configurações
+
+# Execute o servidor de desenvolvimento
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### **Variáveis de Ambiente:**
+```env
+MONGODB_URI=sua_string_de_conexao_mongodb
+NEXTAUTH_SECRET=seu_secret_aqui
+NEXTAUTH_URL=http://localhost:3000
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 📦 **Estrutura do Projeto**
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
+sistema-sos/
+├── app/                    # App Router (Next.js 13+)
+│   ├── api/               # API Routes
+│   │   └── pessoas/       # CRUD de pessoas
+│   ├── components/        # Componentes React
+│   └── page.js           # Página principal
+├── models/                # Modelos Mongoose
+├── utils/                # Utilitários
+└── public/               # Arquivos estáticos
+```
 
-## Learn More
+## 🎯 **API Endpoints**
 
-To learn more about Next.js, take a look at the following resources:
+- `GET /api/pessoas` - Listar todas as pessoas
+- `POST /api/pessoas` - Cadastrar nova pessoa
+- `PUT /api/pessoas/[id]/status` - Alterar status
+- `POST /api/pessoas/[id]/comentario` - Adicionar comentário
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🤝 **Contribuição**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
 
-## Deploy on Vercel
+## 📄 **Licença**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 🆘 **Sistema SOS**
+
+> **Ajudando a reunir famílias e salvar vidas através da tecnologia.**
+
+---
+
+**Desenvolvido com ❤️ para ajudar a comunidade**

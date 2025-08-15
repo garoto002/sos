@@ -28,6 +28,7 @@
     "formidable": "^3.5.4",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",
+    "leaflet": "^1.9.4",
     "mongoose": "^8.0.3",
     "nanoid": "^5.1.5",
     "next": "14.0.4",
@@ -37,6 +38,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
     "react-image-crop": "^11.0.10",
+    "react-leaflet": "^4.2.1",
     "recharts": "^2.15.4",
     "sharp": "^0.34.3"
   },
