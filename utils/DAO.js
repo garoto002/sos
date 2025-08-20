@@ -1,8 +1,8 @@
-import  { connect } from "mongoose";
+import { connect } from "mongoose";
 
-const connectToDB = async () => {
+export const connectToDB = async () => {
+  // await connect("mongodb://localhost:27017/sistema-web-pro-max");
   await connect(
     "mongodb+srv://davidgege07:david00002@cluster0.gsernpa.mongodb.net/SOS"
   );
 };
-export default connectToDB;
