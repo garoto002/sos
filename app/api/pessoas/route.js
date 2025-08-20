@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import Pessoa from "@/models/pessoaModel";
 import connectToDB from "@/utils/DAO";
-import path from "path";
-import fs from "fs";
+import { uploadToCloudinary } from "@/utils/cloudinary";
 
 export async function GET(request) {
   try {
@@ -32,15 +31,17 @@ export async function POST(request) {
       return NextResponse.json({ error: "Nome, status e foto obrigatórios" }, { status: 400 });
     }
 
-    // Salva arquivo localmente
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
-    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
-    const ext = path.extname(fotoFile.name);
-    const fileName = `${Date.now()}_${Math.random().toString(36).slice(2)}${ext}`;
-    const filePath = path.join(uploadDir, fileName);
+    // Upload para Cloudinary
+    const ext = fotoFile.name.split('.').pop();
+    const fileName = `${Date.now()}_${Math.random().toString(36).slice(2)}`;
     const buffer = Buffer.from(await fotoFile.arrayBuffer());
-    fs.writeFileSync(filePath, buffer);
-    const foto = `/uploads/${fileName}`;
+    let foto = "";
+    try {
+      const result = await uploadToCloudinary(buffer, fileName);
+      foto = result.secure_url;
+    } catch (err) {
+      return NextResponse.json({ error: "Erro ao enviar imagem para Cloudinary" }, { status: 500 });
+    }
 
     try {
       await connectToDB();
