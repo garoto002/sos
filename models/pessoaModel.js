@@ -9,6 +9,7 @@ const pessoaSchema = new Schema({
   ultimoLocal: { type: String },
   roupa: { type: String },
   contacto: { type: String },
+  visualizacoes: { type: Number, default: 0 },
   comentarios: [
     {
       texto: String,
